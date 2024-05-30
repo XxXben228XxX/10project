@@ -54,10 +54,34 @@
       <button class="calculator__btn calculator__btn--equals" data-operator="equal">=</button>
     </div>
   </div>
+  <div id="exchange-rates"></div> <!-- New element for exchange rates -->
 </div>
 <script src="js/main.js"></script>
 <script src="js/Calculator.js"></script>
 <script src="js/Calculations.js"></script>
+<script>
+    function getExchangeRates() {
+        fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
+            .then(response => response.json())
+            .then(data => {
+                const usdExchangeRate = data.find(currency => currency.cc === 'USD').rate;
+                const eurExchangeRate = data.find(currency => currency.cc === 'EUR').rate;
+                
+                const exchangeRatesElement = document.getElementById('exchange-rates');
+                exchangeRatesElement.innerHTML = `Курс валют:
+                <ul>
+                    <li>USD: ${usdExchangeRate.toFixed(2)}</li>
+                    <li>EUR: ${eurExchangeRate.toFixed(2)}</li>
+                </ul>`;
+            })
+            .catch(error => {
+                console.error('Помилка отримання курсу валют:', error);
+            });
+    }
+    
+    setInterval(getExchangeRates, 10000);
+    
+    getExchangeRates();
+</script>
 </body>
 </html>
-
