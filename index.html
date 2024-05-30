@@ -13,12 +13,25 @@
       border-radius: 5px;
       margin-top: 20px;
       font-size: 1.2em;
+      width: 200px;
+      cursor: move;
+      position: absolute;
+    }
+    .wrapper {
+      cursor: move;
+      width: 200px;
+      position: absolute;
+    }
+    .calculator {
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-<div class="wrapper">
-  <div class="calculator">
+<div class="wrapper" id="calculator-wrapper">
+  <div class="calculator" id="calculator">
     <div class="calculator__result">
       <input type="text" class="calculator__result-secondary" disabled>
       <input type="text" class="calculator__result-primary" value="0" readonly>
@@ -95,6 +108,40 @@
     setInterval(getExchangeRates, 10000);
     
     getExchangeRates();
+
+    function makeElementDraggable(element) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+        element.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            element.style.top = (element.offsetTop - pos2) + "px";
+            element.style.left = (element.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    makeElementDraggable(document.getElementById("calculator-wrapper"));
+    makeElementDraggable(document.getElementById("exchange-rates"));
 </script>
 </body>
 </html>
