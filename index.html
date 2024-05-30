@@ -6,6 +6,15 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet"> 
   <title>Calculator</title>
+  <style>
+    #exchange-rates {
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
 </head>
 <body>
 <div class="wrapper">
@@ -66,12 +75,16 @@
             .then(data => {
                 const usdExchangeRate = data.find(currency => currency.cc === 'USD').rate;
                 const eurExchangeRate = data.find(currency => currency.cc === 'EUR').rate;
+                const gbpExchangeRate = data.find(currency => currency.cc === 'GBP').rate;
+                const jpyExchangeRate = data.find(currency => currency.cc === 'JPY').rate;
                 
                 const exchangeRatesElement = document.getElementById('exchange-rates');
                 exchangeRatesElement.innerHTML = `Курс валют:
                 <ul>
                     <li>USD: ${usdExchangeRate.toFixed(2)}</li>
                     <li>EUR: ${eurExchangeRate.toFixed(2)}</li>
+                    <li>GBP: ${gbpExchangeRate.toFixed(2)}</li>
+                    <li>JPY: ${jpyExchangeRate.toFixed(2)}</li>
                 </ul>`;
             })
             .catch(error => {
