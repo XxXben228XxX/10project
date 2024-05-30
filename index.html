@@ -16,16 +16,23 @@
       width: 200px;
       cursor: move;
       position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
     }
     .wrapper {
-      cursor: move;
-      width: 200px;
       position: absolute;
+      top: 100px;
+      left: 50px;
+      z-index: 5;
     }
     .calculator {
       background-color: white;
       padding: 10px;
       border-radius: 5px;
+      cursor: move;
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
     }
   </style>
 </head>
@@ -76,8 +83,8 @@
       <button class="calculator__btn calculator__btn--equals" data-operator="equal">=</button>
     </div>
   </div>
-  <div id="exchange-rates"></div> <!-- New element for exchange rates -->
 </div>
+<div id="exchange-rates"></div> <!-- New element for exchange rates -->
 <script src="js/main.js"></script>
 <script src="js/Calculator.js"></script>
 <script src="js/Calculations.js"></script>
