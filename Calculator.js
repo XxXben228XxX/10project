@@ -126,6 +126,7 @@ class Calculator {
     }
   }
 
+  
   clear = () => {
     this.subRes.style.visibility = 'hidden';
     this.result.value = '0';
